@@ -45,16 +45,18 @@ public class SongController {
         }
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> updateSong(@RequestBody Song song) {
-        Song existing = songService.getSongById(song.getId());
-        if (existing != null) {
-            Song updatedSong = songService.updateSong(song);
-            return new ResponseEntity<>(updatedSong, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Cannot update. Song with ID " + song.getId() + " not found.", HttpStatus.NOT_FOUND);
-        }
+   @PutMapping("/update/{id}")
+public ResponseEntity<?> updateSong(@PathVariable int id, @RequestBody Song song) {
+    Song existing = songService.getSongById(id);
+    if (existing != null) {
+        song.setId(id); // force ID from URL
+        Song updatedSong = songService.updateSong(song);
+        return new ResponseEntity<>(updatedSong, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>("Cannot update. Song with ID " + id + " not found.", HttpStatus.NOT_FOUND);
     }
+}
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteSong(@PathVariable int id) {

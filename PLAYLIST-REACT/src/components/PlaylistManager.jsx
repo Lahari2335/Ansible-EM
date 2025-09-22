@@ -59,17 +59,18 @@ const PlaylistManager = () => {
     }
   };
 
-  const updateSong = async () => {
-    if (!validateForm()) return;
-    try {
-      await axios.put(`${baseUrl}/update`, song);
-      setMessage('Song updated successfully.');
-      fetchAllSongs();
-      resetForm();
-    } catch (error) {
-      setMessage('Error: Failed to update song.');
-    }
-  };
+ const updateSong = async () => {
+  if (!validateForm()) return;
+  try {
+    await axios.put(`${baseUrl}/update/${song.id}`, song);
+    setMessage('Song updated successfully.');
+    fetchAllSongs();
+    resetForm();
+  } catch (error) {
+    setMessage('Error: Failed to update song.');
+  }
+};
+
 
   const deleteSong = async (id) => {
     try {
