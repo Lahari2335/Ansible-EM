@@ -1,0 +1,57 @@
+/* style.css */
+
+/* General Page Layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Container */
+div {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h2, h3 {
+  color: #333;
+  text-align: center;
+}
+
+/* Inputs */
+input {
+  display: block;
+  width: 95%;
+  margin: 8px auto;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Buttons */
+button {
+  margin: 5px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Expense List */
+div > div {
+  padding: 10px;
+  margin: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
