@@ -1,8 +1,6 @@
 package com.klef.dev.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "expense_table")
@@ -22,10 +20,6 @@ public class Expense {
     @Column(name = "expense_amount", nullable = false)
     private double amount;
 
-    @Column(name = "expense_date", nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy") // specify date format
-    private LocalDate date;
-
     @Column(name = "expense_notes", length = 255)
     private String notes;
 
@@ -42,15 +36,12 @@ public class Expense {
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
-
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
 
     @Override
     public String toString() {
         return "Expense [id=" + id + ", title=" + title + ", category=" + category +
-                ", amount=" + amount + ", date=" + date + ", notes=" + notes + "]";
+                ", amount=" + amount + ", notes=" + notes + "]";
     }
 }

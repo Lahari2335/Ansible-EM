@@ -5,7 +5,7 @@ import './style.css';
 const ExpenseManager = () => {
   const [expenses, setExpenses] = useState([]);
   const [expense, setExpense] = useState({
-    title: '', amount: '', category: '', date: '', notes: ''
+    title: '', amount: '', category: '', notes: ''
   });
   const [idToFetch, setIdToFetch] = useState('');
   const [fetchedExpense, setFetchedExpense] = useState(null);
@@ -37,11 +37,10 @@ const ExpenseManager = () => {
         title: expense.title,
         category: expense.category,
         amount: Number(expense.amount),
-        date: expense.date,
         notes: expense.notes
       });
       fetchAllExpenses();
-      setExpense({ title: '', amount: '', category: '', date: '', notes: '' });
+      setExpense({ title: '', amount: '', category: '', notes: '' });
       setMessage('Expense added successfully!');
       setFetchedExpense(null);
     } catch (err) {
@@ -56,12 +55,11 @@ const ExpenseManager = () => {
         title: expense.title,
         category: expense.category,
         amount: Number(expense.amount),
-        date: expense.date,
         notes: expense.notes
       });
       fetchAllExpenses();
       setEditMode(false);
-      setExpense({ title: '', amount: '', category: '', date: '', notes: '' });
+      setExpense({ title: '', amount: '', category: '', notes: '' });
       setMessage('Expense updated successfully!');
       setFetchedExpense(null);
     } catch (err) {
@@ -107,7 +105,6 @@ const ExpenseManager = () => {
         <input name="title" placeholder="Title" value={expense.title} onChange={handleChange} />
         <input name="category" placeholder="Category" value={expense.category} onChange={handleChange} />
         <input name="amount" placeholder="Amount" value={expense.amount} onChange={handleChange} />
-        <input name="date" type="date" value={expense.date} onChange={handleChange} />
         <input name="notes" placeholder="Notes" value={expense.notes} onChange={handleChange} />
 
         {!editMode ? (
@@ -128,7 +125,7 @@ const ExpenseManager = () => {
         <h3>All Expenses</h3>
         {expenses.map((exp) => (
           <div key={exp.id}>
-            {exp.id} - {exp.title} - {exp.category} - ₹{exp.amount} - {exp.date}
+            {exp.id} - {exp.title} - {exp.category} - ₹{exp.amount}
             <button onClick={() => handleEdit(exp)}>Edit</button>
             <button onClick={() => deleteExpense(exp.id)}>Delete</button>
           </div>
