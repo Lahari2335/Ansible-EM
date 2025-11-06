@@ -5,7 +5,7 @@ import './style.css';
 const ExpenseManager = () => {
   const [expenses, setExpenses] = useState([]);
   const [expense, setExpense] = useState({
-    id: '', title: '', amount: '', category: '', date: '', notes: ''
+    title: '', amount: '', category: '', date: '', notes: ''
   });
   const [idToFetch, setIdToFetch] = useState('');
   const [fetchedExpense, setFetchedExpense] = useState(null);
@@ -22,7 +22,8 @@ const ExpenseManager = () => {
     try {
       const res = await axios.get(`${baseUrl}/all`);
       setExpenses(res.data);
-    } catch {
+    } catch (err) {
+      console.error(err);
       setMessage('Failed to fetch expenses.');
     }
   };
@@ -33,13 +34,16 @@ const ExpenseManager = () => {
   const addExpense = async () => {
     try {
       await axios.post(`${baseUrl}/add`, {
-        ...expense,
+        title: expense.title,
+        category: expense.category,
         amount: Number(expense.amount),
-        id: expense.id ? Number(expense.id) : undefined // optional if backend auto-generates
+        date: expense.date,
+        notes: expense.notes
       });
       fetchAllExpenses();
-      setExpense({ id: '', title: '', amount: '', category: '', date: '', notes: '' });
+      setExpense({ title: '', amount: '', category: '', date: '', notes: '' });
       setMessage('Expense added successfully!');
+      setFetchedExpense(null);
     } catch (err) {
       console.error(err.response?.data || err.message);
       setMessage('Failed to add expense');
@@ -49,16 +53,20 @@ const ExpenseManager = () => {
   const updateExpense = async () => {
     try {
       await axios.put(`${baseUrl}/update/${expense.id}`, {
-        ...expense,
+        title: expense.title,
+        category: expense.category,
         amount: Number(expense.amount),
+        date: expense.date,
+        notes: expense.notes
       });
       fetchAllExpenses();
       setEditMode(false);
-      setExpense({ id: '', title: '', amount: '', category: '', date: '', notes: '' });
+      setExpense({ title: '', amount: '', category: '', date: '', notes: '' });
       setMessage('Expense updated successfully!');
+      setFetchedExpense(null);
     } catch (err) {
       console.error(err.response?.data || err.message);
-      setMessage('Failed to update');
+      setMessage('Failed to update expense');
     }
   };
 
@@ -67,7 +75,9 @@ const ExpenseManager = () => {
       await axios.delete(`${baseUrl}/delete/${id}`);
       fetchAllExpenses();
       setMessage('Expense deleted successfully!');
-    } catch {
+      setFetchedExpense(null);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
       setMessage('Failed to delete');
     }
   };
@@ -78,7 +88,7 @@ const ExpenseManager = () => {
       setFetchedExpense(res.data);
     } catch {
       setFetchedExpense(null);
-      setMessage('Not found');
+      setMessage('Expense not found');
     }
   };
 
@@ -93,9 +103,6 @@ const ExpenseManager = () => {
 
       <div>
         <h3>{editMode ? 'Edit Expense' : 'Add Expense'}</h3>
-
-        {/* Optional if backend auto-generates ID */}
-        {!editMode && <input name="id" placeholder="ID" value={expense.id} onChange={handleChange} />}
 
         <input name="title" placeholder="Title" value={expense.title} onChange={handleChange} />
         <input name="category" placeholder="Category" value={expense.category} onChange={handleChange} />
