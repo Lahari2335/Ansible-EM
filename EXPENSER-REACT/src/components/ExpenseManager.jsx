@@ -10,7 +10,7 @@ const ExpenseManager = () => {
   const [message, setMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
 
-  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:30025/expenseapi';
+  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:30030/expenseapi';
 
   useEffect(() => {
     fetchAllExpenses();
