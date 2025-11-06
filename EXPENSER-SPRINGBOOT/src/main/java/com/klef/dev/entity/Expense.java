@@ -2,6 +2,7 @@ package com.klef.dev.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "expense_table")
@@ -22,6 +23,7 @@ public class Expense {
     private double amount;
 
     @Column(name = "expense_date", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy") // specify date format
     private LocalDate date;
 
     @Column(name = "expense_notes", length = 255)
