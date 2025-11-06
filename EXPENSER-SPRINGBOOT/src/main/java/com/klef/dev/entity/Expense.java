@@ -1,13 +1,14 @@
 package com.klef.dev.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "expense_table")
 public class Expense {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generate ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expense_id")
     private int id;
 
@@ -20,8 +21,8 @@ public class Expense {
     @Column(name = "expense_amount", nullable = false)
     private double amount;
 
-    @Column(name = "expense_date", nullable = false, length = 20)
-    private String date;
+    @Column(name = "expense_date", nullable = false)
+    private LocalDate date;
 
     @Column(name = "expense_notes", length = 255)
     private String notes;
@@ -39,8 +40,8 @@ public class Expense {
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
 
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
